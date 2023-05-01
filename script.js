@@ -190,12 +190,13 @@ observer.observe(header);
 
 //Revealing elements on scroll
 const observerFunction = function (entries, observer) {
-  console.log(entries);
-  if (entries[0].isIntersecting) {
-    entries[0].target.classList.remove('section--hidden');
-  }
+  const [entry] = entries;
+  console.log(entry);
 
-  observer2.unobserve(entries[0].target);
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden');
+  observer2.unobserve(entry.target);
 };
 
 const observer2 = new IntersectionObserver(observerFunction, {
