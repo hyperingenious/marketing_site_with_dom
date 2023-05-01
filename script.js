@@ -190,6 +190,7 @@ observer.observe(header);
 
 //Revealing elements on scroll
 const observerFunction = function (entries, observer) {
+  console.log(entries);
   if (entries[0].isIntersecting) {
     entries[0].target.classList.remove('section--hidden');
   }
@@ -209,4 +210,15 @@ document.querySelectorAll('.section').forEach(s => {
 
 // Lazy loading
 const images = document.querySelectorAll('img[data-src]');
-console.log(images);
+
+const imageobserver = function (entries, observer) {
+  // console.log(entries);
+};
+
+const observer3 = new IntersectionObserver(imageobserver, {
+  root: null,
+  threshold: 0,
+});
+images.forEach(img => {
+  observer3.observe(img);
+});
