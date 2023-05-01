@@ -191,7 +191,7 @@ observer.observe(header);
 //Revealing elements on scroll
 const observerFunction = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
 
@@ -213,7 +213,10 @@ document.querySelectorAll('.section').forEach(s => {
 const images = document.querySelectorAll('img[data-src]');
 
 const imageobserver = function (entries, observer) {
-  // console.log(entries);
+  const [entry] = entries;
+  console.log(entry);
+
+  // if()
 };
 
 const observer3 = new IntersectionObserver(imageobserver, {
