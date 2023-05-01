@@ -156,7 +156,7 @@ const event_delegator = function (e, opacity) {
 };
 
 nav.addEventListener('mouseover', event_delegator.bind(0.5));
-nav.addEventListener - ('mouseout', event_delegator.bind(1));
+nav.addEventListener('mouseout', event_delegator.bind(1));
 
 const section1_coords = section1.getBoundingClientRect();
 
@@ -206,3 +206,7 @@ document.querySelectorAll('.section').forEach(s => {
   s.classList.add('section--hidden');
   observer2.observe(s);
 });
+
+// Lazy loading
+const images = document.querySelectorAll('img[data-src]');
+console.log(images);
