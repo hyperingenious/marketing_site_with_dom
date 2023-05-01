@@ -180,6 +180,7 @@ const stickyNav = function (entries, observer) {
     nav.classList.remove('sticky');
   }
 };
+
 const observer = new IntersectionObserver(stickyNav, {
   root: null,
   threshold: 0,
@@ -187,13 +188,18 @@ const observer = new IntersectionObserver(stickyNav, {
 });
 observer.observe(header);
 
+//Revealing elements on scroll
 const observerFunction = function (entries, observer) {
-  console.log(entries[0].isIntersecting);
-  if (entries[0].isIntersecting) section1.classList.remove('section--hidden');
+  if (entries[0].isIntersecting)
+    entries[0].target.classList.remove('section--hidden');
 };
 
 const observer2 = new IntersectionObserver(observerFunction, {
   root: null,
   threshold: 0.1,
 });
-observer2.observe(section1);
+
+document.querySelectorAll('.section').forEach(s => {
+  s.classList.add('section--hidden');
+  observer2.observe(s);
+});
