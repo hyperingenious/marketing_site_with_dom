@@ -62,6 +62,9 @@ message.style.height =
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const section2 = document.querySelector('#section--2');
+const section3 = document.querySelector('#section--3');
+const section4 = document.querySelector('#section--4');
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
@@ -153,14 +156,44 @@ const event_delegator = function (e, opacity) {
 };
 
 nav.addEventListener('mouseover', event_delegator.bind(0.5));
-nav.addEventListener('mouseout', event_delegator.bind(1));
+nav.addEventListener - ('mouseout', event_delegator.bind(1));
 
 const section1_coords = section1.getBoundingClientRect();
 
 // Sticky navigation
-window.addEventListener('scroll', () => {
-  console.log(section1_coords);
+// window.addEventListener('scroll', () => {
+//   console.log(section1_coords);
 
-  if (window.pageYOffset > 300) nav.classList.add('sticky');
-  if (window.pageYOffset < 200) nav.classList.remove('sticky');
+//   if (window.pageYOffset > section1_coords.top) nav.classList.add('sticky');
+//   if (window.pageYOffset == 0) nav.classList.remove('sticky');
+// });
+
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry.isIntersecting);
+
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+const observer = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, // only accept the arguement in pixels only
 });
+observer.observe(header);
+
+const observerFunction = function (entries, observer) {
+  console.log(entries[0].isIntersecting);
+  if (entries[0].isIntersecting) section1.classList.remove('section--hidden');
+};
+
+const observer2 = new IntersectionObserver(observerFunction, {
+  root: null,
+  threshold: 0.1,
+});
+observer2.observe(section1);
