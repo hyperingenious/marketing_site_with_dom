@@ -189,6 +189,9 @@ const observer = new IntersectionObserver(stickyNav, {
 observer.observe(header);
 
 //Revealing elements on scroll
+
+/* Temporary block
+
 const observerFunction = function (entries, observer) {
   const [entry] = entries;
   // console.log(entry);
@@ -208,6 +211,7 @@ document.querySelectorAll('.section').forEach(s => {
   s.classList.add('section--hidden');
   observer2.observe(s);
 });
+*/
 
 // Lazy loading
 const images = document.querySelectorAll('img[data-src]');
@@ -231,4 +235,13 @@ const observer3 = new IntersectionObserver(imageobserver, {
 });
 images.forEach(img => {
   observer3.observe(img);
+});
+
+// Slider
+const slides = document.querySelectorAll('.slide');
+document.querySelector('.slider').style.overflow = 'visible';
+document.querySelector('.slider').style.transform = 'scale(0.2)';
+
+slides.forEach((slide, index) => {
+  slide.style.transform = `translateX(${100 * index}%)`;
 });
