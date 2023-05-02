@@ -239,9 +239,39 @@ images.forEach(img => {
 
 // Slider
 const slides = document.querySelectorAll('.slide');
-document.querySelector('.slider').style.overflow = 'visible';
-document.querySelector('.slider').style.transform = 'scale(0.2)';
+const btnRight = document.querySelector('.slider__btn--right');
+const btnLeft = document.querySelector('.slider__btn--left');
+
+// document.querySelector('.slider').style.overflow = 'visible';
+// document.querySelector('.slider').style.transform = 'scale(0.2)';
 
 slides.forEach((slide, index) => {
   slide.style.transform = `translateX(${100 * index}%)`;
+});
+
+let maxSlide = slides.length;
+let crSlide = 0;
+
+btnRight.addEventListener('click', function () {
+  if (crSlide === maxSlide - 1) {
+    crSlide = 0;
+  } else {
+    crSlide++;
+  }
+
+  slides.forEach((slide, index) => {
+    slide.style.transform = `translateX(${100 * (index - crSlide)}%)`;
+  });
+});
+btnLeft.addEventListener('click', function () {
+  if (crSlide == 0) {
+    crSlide = maxSlide - 1;
+  } else {
+    crSlide--;
+  }
+
+  slides.forEach((slide, index) => {
+    slide.style.transform = `translateX(${100 * (index - crSlide)}%)`;
+    console.log('slide', index, 100 * (index - crSlide), '%');
+  });
 });
