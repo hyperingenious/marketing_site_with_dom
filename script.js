@@ -218,7 +218,7 @@ const images = document.querySelectorAll('img[data-src]');
 
 const imageobserver = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
   entry.target.src = entry.target.dataset.src;
@@ -245,33 +245,46 @@ const btnLeft = document.querySelector('.slider__btn--left');
 // document.querySelector('.slider').style.overflow = 'visible';
 // document.querySelector('.slider').style.transform = 'scale(0.2)';
 
-slides.forEach((slide, index) => {
-  slide.style.transform = `translateX(${100 * index}%)`;
-});
+const slideMover = function (crSlide) {
+  slides.forEach((slide, index) => {
+    slide.style.transform = `translateX(${100 * (index - crSlide)}%)`;
+  });
+};
+slideMover(0);
 
 let maxSlide = slides.length;
 let crSlide = 0;
 
-btnRight.addEventListener('click', function () {
-  if (crSlide === maxSlide - 1) {
-    crSlide = 0;
-  } else {
-    crSlide++;
-  }
+const nextSlide = function () {
+  if (crSlide === maxSlide - 1) crSlide = 0;
+  else crSlide++;
+  slideMover(crSlide);
+};
+const prevSlide = function () {
+  if (crSlide == 0) crSlide = maxSlide - 1;
+  else crSlide--;
+  slideMover(crSlide);
+};
 
-  slides.forEach((slide, index) => {
-    slide.style.transform = `translateX(${100 * (index - crSlide)}%)`;
-  });
-});
-btnLeft.addEventListener('click', function () {
-  if (crSlide == 0) {
-    crSlide = maxSlide - 1;
-  } else {
-    crSlide--;
-  }
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
 
-  slides.forEach((slide, index) => {
-    slide.style.transform = `translateX(${100 * (index - crSlide)}%)`;
-    console.log('slide', index, 100 * (index - crSlide), '%');
-  });
+const sliderSection = document.querySelector('#section--3');
+
+const slider_mover_with_arrow_click = function (e) {
+  if (e.key === 'ArrowRight') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+};
+
+const keydownEvent = function (entries, observer) {
+  const [entry] = entries;
+  entry.isIntersecting
+    ? document.addEventListener('keydown', slider_mover_with_arrow_click)
+    : document.removeEventListener('keydown', slider_mover_with_arrow_click);
+};
+
+const observer4 = new IntersectionObserver(keydownEvent, {
+  root: null,
+  threshold: 0,
 });
+observer4.observe(sliderSection);
