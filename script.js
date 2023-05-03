@@ -81,7 +81,7 @@ btnScrollTo.addEventListener('click', function (e) {
     s1coords.top + window.pageYOffset
   );
 
-  //Smooth scrolling
+  //use of smooth scrolling
   window.scrollTo({
     left: s1coords.left + window.pageXOffset,
     top: s1coords.top + window.pageYOffset,
@@ -100,7 +100,7 @@ const randomInt = (min, max) =>
 const randomColor = () =>
   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
-// Event propagation
+// use of event propagation
 document.querySelector('.nav__link').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
 });
@@ -113,7 +113,7 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
 });
 
-// Tabbed component
+// use of tabbed component
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
@@ -141,7 +141,6 @@ tabsContainer.addEventListener('click', function (e) {
 });
 
 //Menu Fade animation | use of event delegation | use of bind
-
 const event_delegator = function (e, opacity) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
@@ -159,20 +158,10 @@ nav.addEventListener('mouseover', event_delegator.bind(0.5));
 nav.addEventListener('mouseout', event_delegator.bind(1));
 
 const section1_coords = section1.getBoundingClientRect();
-
-// Sticky navigation
-// window.addEventListener('scroll', () => {
-//   console.log(section1_coords);
-
-//   if (window.pageYOffset > section1_coords.top) nav.classList.add('sticky');
-//   if (window.pageYOffset == 0) nav.classList.remove('sticky');
-// });
-
 const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries, observer) {
   const [entry] = entries;
-  // console.log(entry.isIntersecting);
 
   if (!entry.isIntersecting) {
     nav.classList.add('sticky');
@@ -188,14 +177,11 @@ const observer = new IntersectionObserver(stickyNav, {
 });
 observer.observe(header);
 
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 //Revealing elements on scroll
-
-/* Temporary block
-
 const observerFunction = function (entries, observer) {
   const [entry] = entries;
-  // console.log(entry);
-
   if (!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
@@ -211,14 +197,14 @@ document.querySelectorAll('.section').forEach(s => {
   s.classList.add('section--hidden');
   observer2.observe(s);
 });
-*/
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 
-// Lazy loading
+// use of lazy loading
 const images = document.querySelectorAll('img[data-src]');
 
 const imageobserver = function (entries, observer) {
   const [entry] = entries;
-  // console.log(entry);
 
   if (!entry.isIntersecting) return;
   entry.target.src = entry.target.dataset.src;
@@ -236,8 +222,12 @@ const observer3 = new IntersectionObserver(imageobserver, {
 images.forEach(img => {
   observer3.observe(img);
 });
+/////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 
-// Slider component
+// use of slider component
+// use of dots componenet
+// use of arrow component
 const slider = function () {
   const sliderSection = document.querySelector('#section--3');
   const slides = document.querySelectorAll('.slide');
@@ -324,3 +314,4 @@ const slider = function () {
   });
   observer4.observe(sliderSection);
 };
+slider();
