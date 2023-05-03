@@ -315,3 +315,10 @@ const slider = function () {
   observer4.observe(sliderSection);
 };
 slider();
+
+// window.addEventListener('beforeunload', e => {
+//   e.preventDefault();
+//   alert('Changes may not be saved');
+//   console.log(e);
+//   e.returnValue = '';
+// });
