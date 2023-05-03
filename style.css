@@ -19,6 +19,10 @@
   padding: 0;
   box-sizing: inherit;
 }
+::selection {
+  color: gold;
+  background-color: white;
+}
 
 html {
   font-size: 62.5%;

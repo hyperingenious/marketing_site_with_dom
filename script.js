@@ -237,13 +237,10 @@ images.forEach(img => {
   observer3.observe(img);
 });
 
-// Slider
+// Slider component
 const slides = document.querySelectorAll('.slide');
 const btnRight = document.querySelector('.slider__btn--right');
 const btnLeft = document.querySelector('.slider__btn--left');
-
-// document.querySelector('.slider').style.overflow = 'visible';
-// document.querySelector('.slider').style.transform = 'scale(0.2)';
 
 const slideMover = function (crSlide) {
   slides.forEach((slide, index) => {
