@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 // Old way
 const Profile_maker = function (firstName, secondName, age, state) {
   this.firstName = firstName;
@@ -18,7 +18,7 @@ Profile_maker.prototype.intro = function () {
 Profile_maker.prototype.isIndian = true;
 
 // const saurav = new Profile_maker('Saurav', 'Meghwal', 18, 'Rajasthan');
-// console.log(new Profile_maker());
+console.log(new Profile_maker());
 // const arr = ['sonu', 'monu', 'raja'];
 // console.log(arr.__proto__);
 
@@ -29,27 +29,51 @@ class Car {
   }
   /*
 this = {}
-*/
+
   static saurav = 19;
   accelerate() {
     this.speed = this.speed + 10;
-    console.log(this.speed);
+    // console.log(this.speed);
   }
 
   brake() {
     this.speed = this.speed - 5;
-    console.log(this.speed);
+    // console.log(this.speed);
   }
 
   set make(make) {
     if (make.includes('B')) {
       this._make = make;
     } else {
-      console.log('Must be BMW only');
+      //   console.log('Must be BMW only');
     }
   }
 }
 
 const bmw = new Car('BMW', 78);
-console.log(bmw);
-console.log(Car.saurav);
+// console.log(bmw);
+// console.log(Car.saurav);
+*/
+
+const proto = {
+  basicDetails({ name, birthYear, solved, correct }) {
+    this.name = name;
+    this.birthYear = birthYear;
+    this.solved = solved;
+    this.correct = correct;
+  },
+  calcAgenIQ() {
+    this.age = 2022 - this.birthYear;
+    this.IQ = (this.correct / this.solved) * 100 + '% IQ';
+  },
+};
+
+const saurav = Object.create(proto);
+saurav.basicDetails({
+  name: 'Saurav Meghwal',
+  solved: 1000000,
+  correct: 999999,
+  birthYear: 2005,
+});
+saurav.calcAgenIQ();
+console.log(saurav);
