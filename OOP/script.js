@@ -188,20 +188,27 @@ console.log(model_S);
 
 */
 class Bank {
-  constructor(name, age, gender) {
-    this.name = name;
+  constructor(username, age, gender, pin) {
+    this.username = username;
+    this._pin = pin;
     this.age = age;
     this.gender = gender;
     this.mov = [];
     this.balance = 0;
   }
-  deposit(val) {
-    this.mov.push(val);
+  deposit(val, pin) {
+    pin === this._pin
+      ? this.mov.push(val)
+      : console.error('Entered Pin is incorrect');
   }
-  withdrawal(val) {
+  withdrawal(val, pin) {
     this.deposit(-val);
   }
   calcBal() {
     this.balance += this.mov.reduce((a, c) => a + c, 0);
   }
 }
+const sa = new Bank('sauravmeghwal', 18, 'male', 2388);
+sa.deposit(1828283, 2388);
+sa.calcBal();
+console.log(sa);
