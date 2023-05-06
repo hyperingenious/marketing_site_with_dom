@@ -117,3 +117,8 @@ Mother.prototype = Object.create(Human.prototype);
 const raji = new Mother('India', 1995, 'Female', 'long', true, true, 2);
 raji.calcAge();
 console.log(raji);
+console.log('Mother', raji instanceof Mother);
+console.log('Wife', raji instanceof Wife);
+console.log('Female', raji instanceof Female);
+console.log('Human', raji instanceof Human);
+console.log(raji instanceof Human);
