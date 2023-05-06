@@ -155,6 +155,7 @@ const bmw = new Car('BMW', 78);
 // );
 // skd.cu();
 // console.log(skd);
+/*
 class Car {
   constructor(make, currentSpeed) {
     this.make = make;
@@ -183,3 +184,24 @@ model_S.acc();
 model_S.acc();
 model_S.chargeTo(10660);
 console.log(model_S);
+
+
+*/
+class Bank {
+  constructor(name, age, gender) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.mov = [];
+    this.balance = 0;
+  }
+  deposit(val) {
+    this.mov.push(val);
+  }
+  withdrawal(val) {
+    this.deposit(-val);
+  }
+  calcBal() {
+    this.balance += this.mov.reduce((a, c) => a + c, 0);
+  }
+}
