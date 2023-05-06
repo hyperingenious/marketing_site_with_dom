@@ -81,15 +81,39 @@ saurav.calcAgenIQ();
 
 // Human > Female > wife > mother
 
-const Human = function (country, birthYear, married) {
+const Human = function (country, birthYear) {
   this.country = country;
   this.birthYear = birthYear;
-  this.married = married;
 };
 Human.prototype.calcAge = function () {
   this.age = 2023 - this.birthYear;
 };
 
-const raji = new Human('India', 2005, true);
+const Female = function (country, birthYear, gender, hairs) {
+  Human.call(this, country, birthYear);
+  this.gender = gender;
+  this.hairs = hairs;
+};
+
+const Wife = function (country, birthYear, gender, hairs, married) {
+  Female.call(this, country, birthYear, gender, hairs);
+  this.married = married;
+};
+
+const Mother = function (
+  country,
+  birthYear,
+  gender,
+  hairs,
+  married,
+  parent,
+  child_num
+) {
+  Wife.call(this, country, birthYear, gender, hairs, married);
+  this.parent = parent;
+  this.child_num = child_num;
+};
+Mother.prototype = Object.create(Human.prototype);
+const raji = new Mother('India', 1995, 'Female', 'long', true, true, 2);
 raji.calcAge();
 console.log(raji);
