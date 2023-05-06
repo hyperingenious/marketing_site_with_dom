@@ -69,6 +69,7 @@ const proto = {
 };
 
 const saurav = Object.create(proto);
+
 saurav.basicDetails({
   name: 'Saurav Meghwal',
   solved: 1000000,
@@ -76,4 +77,19 @@ saurav.basicDetails({
   birthYear: 2005,
 });
 saurav.calcAgenIQ();
-console.log(saurav);
+// console.log(saurav);
+
+// Human > Female > wife > mother
+
+const Human = function (country, birthYear, married) {
+  this.country = country;
+  this.birthYear = birthYear;
+  this.married = married;
+};
+Human.prototype.calcAge = function () {
+  this.age = 2023 - this.birthYear;
+};
+
+const raji = new Human('India', 2005, true);
+raji.calcAge();
+console.log(raji);
