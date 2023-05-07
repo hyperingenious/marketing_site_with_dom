@@ -36,7 +36,7 @@ this = {}
     // console.log(this.speed);
   }
 
-  brake() {
+  brk() {
     this.speed = this.speed - 5;
     // console.log(this.speed);
   }
@@ -188,29 +188,104 @@ console.log(model_S);
 
 */
 class Bank {
-  #mov = [];
-  #balance = 0;
-  #_pin;
-
   constructor(username, age, gender, pin) {
     this.username = username;
-    this.#_pin = pin;
+    this._pin = pin;
     this.age = age;
     this.gender = gender;
+    this.mov = [];
+    this.balance = 0;
   }
-  #deposit(val, pin) {
-    pin === this.#_pin
-      ? this.#mov.push(val)
+  deposit(val, pin) {
+    pin === this._pin
+      ? this.mov.push(val)
       : console.error('Entered Pin is incorrect');
+    return this;
   }
-  #withdrawal(val, pin) {
-    this.deposit(-val);
+  withdrawal(val, pin) {
+    this.deposit(-val, pin);
+    return this;
   }
-  #calcBal() {
-    this.#balance += this.#mov.reduce((a, c) => a + c, 0);
+  calcBal() {
+    this.balance += this.mov.reduce((a, c) => a + c, 0);
+    return this;
+  }
+  getLoan(amount) {
+    this.mov.push(amount);
+    return this;
   }
 }
 const sa = new Bank('sauravmeghwal', 18, 'male', 2388);
-// sa.deposit(1828283, 2388);
-// sa.calcBal();
-console.log(sa.#_pin);
+sa.deposit(1828283, 2388)
+  .deposit(283, 2388)
+  .withdrawal(1000000, 2388)
+  .getLoan(98778765456);
+
+sa.calcBal();
+// console.log(sa);
+
+class CarCl {
+  constructor(make, tyres, seats, topSpeed, currentSpeed) {
+    this.make = make;
+    this.tyres = tyres;
+    this.seats = seats;
+    this.currentSpeed = currentSpeed;
+    this.topSpeed = topSpeed;
+  }
+}
+
+class EvCl extends CarCl {
+  #currentCharge;
+
+  constructor(make, tyres, seats, topSpeed, currentSpeed, currentCharge) {
+    super(make, tyres, seats, topSpeed, currentSpeed);
+    this.#currentCharge = currentCharge;
+  }
+  acc() {
+    this.currentSpeed += 20;
+
+    if (this.make === 'EV') {
+      this.#currentCharge -= 1;
+      console.log(
+        `${this.make} is going with the speed of ${
+          this.currentSpeed
+        }km/h with the charge of ${this.#currentCharge}%`
+      );
+    }
+    return this;
+  }
+  brk() {
+    this.currentSpeed - +20;
+
+    console.log(
+      `${this.make} is going with the speed of ${
+        this.currentSpeed
+      }km/h with the charge of ${this.#currentCharge}%`
+    );
+    return this;
+  }
+  charge(energy) {
+    const req_charge = energy + this.#currentCharge;
+    if (req_charge > 100) this.charge = 100;
+    else this.#currentCharge += energy;
+
+    console.log(
+      `${this.make} is going with the speed of ${
+        this.currentSpeed
+      }km/h with the charge of ${this.#currentCharge}%`
+    );
+    return this;
+  }
+}
+const modelK = new EvCl('EV', 'CEAT', 4, '300km/h', 100, 70);
+modelK
+  .charge(19)
+  .acc()
+  .charge(11)
+  .brk()
+  .brk()
+  .brk()
+  .acc()
+  .acc()
+  .acc()
+  .charge(82823883);
